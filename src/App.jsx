@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import './App.css'
 
 export default function App() {
   const [query, setQuery] = useState("");
@@ -162,118 +163,139 @@ Return JSON only, no extra text.
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "1200px", margin: "0 auto" }}>
-      <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "16px" }}>
-        Smart Product Search
-      </h1>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="e.g., nike shoe with red color under 300 dollars"
-        style={{
-          width: "100%",
-          padding: "10px",
-          borderRadius: "4px",
-          border: "1px solid #ccc",
-          marginBottom: "10px",
-        }}
-      />
-      <button
-        onClick={handleSearch}
-        disabled={loading || !query.trim()}
-        style={{
-          backgroundColor: "#2563EB",
-          color: "white",
-          padding: "10px 20px",
-          borderRadius: "4px",
-          border: "none",
-          cursor: loading || !query.trim() ? "not-allowed" : "pointer",
-          opacity: loading ? 0.6 : 1,
-          marginBottom: "20px",
-        }}
-      >
-        {loading ? "Searching..." : "Search"}
-      </button>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
-        {Array.isArray(results) ? (
-          results.length > 0 ? (
-            results.map((item, index) => (
+  <div style={{ padding: "20px", maxWidth: "1200px", margin: "0 auto" }}>
+    <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "16px" }}>
+      Smart Product Search
+    </h1>
+    <input
+      type="text"
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      placeholder="e.g., nike shoe with red color under 300 dollars"
+      style={{
+        width: "100%",
+        padding: "10px",
+        borderRadius: "4px",
+        border: "1px solid #ccc",
+        marginBottom: "10px",
+        fontSize: "16px",
+      }}
+    />
+    <button
+      onClick={handleSearch}
+      disabled={loading || !query.trim()}
+      style={{
+        backgroundColor: "#2563EB",
+        color: "white",
+        padding: "10px 20px",
+        borderRadius: "4px",
+        border: "none",
+        cursor: loading || !query.trim() ? "not-allowed" : "pointer",
+        opacity: loading ? 0.6 : 1,
+        marginBottom: "20px",
+        fontSize: "16px",
+      }}
+    >
+      {loading ? "Searching..." : "Search"}
+    </button>
+
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "16px",
+        justifyContent: "center",
+      }}
+    >
+      {Array.isArray(results) ? (
+        results.length > 0 ? (
+          results.map((item, index) => (
+            <div
+              key={index}
+              style={{
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                padding: "10px",
+                width: "100%",
+                maxWidth: "320px",
+                boxSizing: "border-box",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <div
-                key={index}
-                style={{
-                  border: "1px solid #ddd",
-                  borderRadius: "8px",
-                  padding: "10px",
-                  width: "calc(33.33% - 16px)",
-                  boxSizing: "border-box",
-                  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
+                style={{ fontWeight: "bold", fontSize: "16px", marginBottom: "4px", textAlign: "center" }}
               >
-                <div
-                  style={{ fontWeight: "bold", fontSize: "16px", marginBottom: "4px" }}
-                >
-                  {item.name}
-                </div>
-                <div style={{ fontSize: "12px", color: "#666" }}>
-                  {item.brand} - {item.catalogName || ""}
-                </div>
-                <div style={{ fontSize: "14px", marginTop: "4px" }}>
-                  Price: {item.priceCurrency || "$"} {item.price}
-                </div>
-                {item.salePrice > 0 && (
-                  <div style={{ fontSize: "14px", color: "green" }}>
-                    Sale Price: {item.priceCurrency || "$"} {item.salePrice}
-                  </div>
-                )}
-                <div style={{ fontSize: "12px", marginTop: "4px" }}>
-                  Color: {item.Color || "-"}, Size: {item.Size || "-"}, Gender:{" "}
-                  {item.Gender || "-"}
-                </div>
-                <div
-                  style={{ fontSize: "12px", marginTop: "4px", textAlign: "center" }}
-                >
-                  {item.shortDescription || ""}
-                </div>
-                {item.imageUrl && (
-                  <img
-                    src={item.imageUrl}
-                    alt={item.name}
-                    style={{ width: "150px", height: "150px", objectFit: "contain", margin: "10px 0" }}
-                  />
-                )}
-                {item.linkUrl && (
-                  <a
-                    href={item.linkUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: "#2563EB", textDecoration: "underline", fontSize: "14px" }}
-                  >
-                    View Product
-                  </a>
-                )}
+                {item.name}
               </div>
-            ))
-          ) : (
-            <div></div>
-          )
+              <div style={{ fontSize: "12px", color: "#666", textAlign: "center" }}>
+                {item.brand} - {item.catalogName || ""}
+              </div>
+              <div style={{ fontSize: "14px", marginTop: "4px" }}>
+                Price: {item.priceCurrency || "$"} {item.price}
+              </div>
+              {item.salePrice > 0 && (
+                <div style={{ fontSize: "14px", color: "green" }}>
+                  Sale Price: {item.priceCurrency || "$"} {item.salePrice}
+                </div>
+              )}
+              <div style={{ fontSize: "12px", marginTop: "4px" }}>
+                Color: {item.Color || "-"}, Size: {item.Size || "-"}, Gender:{" "}
+                {item.Gender || "-"}
+              </div>
+              <div style={{ fontSize: "12px", marginTop: "4px", textAlign: "center" }}>
+                {item.shortDescription || ""}
+              </div>
+              {item.imageUrl && (
+                <img
+                  src={item.imageUrl}
+                  alt={item.name}
+                  style={{
+                    width: "100%",
+                    maxWidth: "150px",
+                    height: "150px",
+                    objectFit: "contain",
+                    margin: "10px 0",
+                  }}
+                />
+              )}
+              {item.linkUrl && (
+                <a
+                  href={item.linkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: "#2563EB",
+                    textDecoration: "underline",
+                    fontSize: "14px",
+                    textAlign: "center",
+                  }}
+                >
+                  View Product
+                </a>
+              )}
+            </div>
+          ))
         ) : (
-          <pre
-            style={{
-              backgroundColor: "#f5f5f5",
-              padding: "10px",
-              borderRadius: "4px",
-              width: "100%",
-              overflowX: "auto",
-            }}
-          >
-            {results || "Results will appear here..."}
-          </pre>
-        )}
-      </div>
+          <div>No results found</div>
+        )
+      ) : (
+        <pre
+          style={{
+            backgroundColor: "#f5f5f5",
+            padding: "10px",
+            borderRadius: "4px",
+            width: "100%",
+            overflowX: "auto",
+          }}
+        >
+          {results || "Results will appear here..."}
+        </pre>
+      )}
     </div>
-  );
+  </div>
+);
+
 }
